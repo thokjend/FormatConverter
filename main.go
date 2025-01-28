@@ -119,17 +119,30 @@ func convertHexToBinary(input string)string{
 
 
 func convertHexToAscii(input string)string{
-	hexParts := strings.Split(input, " ")
+	//hexParts := strings.Split(input, " ")
 	var asciiString strings.Builder
 
-	for _, hexPart := range hexParts{
-		decimal, err := strconv.ParseInt(hexPart, 16, 64)
+	for i := 0; i < len(input); i+= 2{
+		end := i + 2
+		if end > len(input){
+			end = len(input)
+		}
+		decimal, err := strconv.ParseInt(input[i:end], 16, 64)
 		if err != nil{
 			return "Invalid hex input"
 		}
 		ascii := fmt.Sprintf("%c", decimal)
 		asciiString.WriteString(ascii)
 	}
+
+	/* for _, hexPart := range hexParts{
+		decimal, err := strconv.ParseInt(hexPart, 16, 64)
+		if err != nil{
+			return "Invalid hex input"
+		}
+		ascii := fmt.Sprintf("%c", decimal)
+		asciiString.WriteString(ascii)
+	} */
 
 	return asciiString.String()
 }
